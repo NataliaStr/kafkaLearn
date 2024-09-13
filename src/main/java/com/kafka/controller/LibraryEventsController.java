@@ -28,7 +28,7 @@ public class LibraryEventsController {
     public ResponseEntity<LibraryEvent> postLibraryEvent(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException, ExecutionException, InterruptedException, TimeoutException {
         log.info("library event: {} " , libraryEvent);
         // invoke kafka producer
-        libraryEventsProducer. sendLibraryEventSynh(libraryEvent);
+        libraryEventsProducer. sendLibraryEventAsyncProducerRecord(libraryEvent);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(libraryEvent);
     }
