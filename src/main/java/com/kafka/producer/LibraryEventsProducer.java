@@ -63,7 +63,7 @@ public class LibraryEventsProducer {
         return sendResult;
     }
 
-    public void sendLibraryEventAsyncProducerRecord(LibraryEvent libraryEvent) throws JsonProcessingException {
+    public CompletableFuture<SendResult<Integer, String>> sendLibraryEventAsyncProducerRecord(LibraryEvent libraryEvent) throws JsonProcessingException {
         Integer key = libraryEvent.libraryId();
         String value = objectMapper.writeValueAsString(libraryEvent);
 
@@ -71,7 +71,7 @@ public class LibraryEventsProducer {
 
         CompletableFuture<SendResult<Integer, String>> resultCompletableFuture = kafkaTemplate.send(producerRecord);
 
-        resultCompletableFuture.whenComplete((sendResult, throwable) -> {
+        return resultCompletableFuture.whenComplete((sendResult, throwable) -> {
             if (throwable == null) {
                 // success
                 handleSuccess(key, value, sendResult);
