@@ -62,7 +62,7 @@ class LibraryEventsControllerIntegrationTest {
     void postLibraryEvent() {
         //given
         HttpHeaders headers = new HttpHeaders();
-        headers.set("content-type", MediaType.APPLICATION_JSON.toString());
+        headers.set("content-libraryEventType", MediaType.APPLICATION_JSON.toString());
         HttpEntity<LibraryEvent> libraryEventHttpEntity = new HttpEntity<>(TestUtilUnit.libraryEventRecord(), headers);
 
         //when
@@ -76,7 +76,7 @@ class LibraryEventsControllerIntegrationTest {
 
         consumerRecords.forEach(consumerRecord ->{
             LibraryEvent actualEvent = TestUtilUnit.parseLibraryEventRecord(objectMapper, consumerRecord.value());
-            assertEquals(TestUtilUnit.libraryEventRecord().libraryId(), actualEvent.libraryId());
+            assertEquals(TestUtilUnit.libraryEventRecord().libraryEventId(), actualEvent.libraryEventId());
             assertEquals(TestUtilUnit.libraryEventRecord().book().bookName(), actualEvent.book().bookName());
         });
     }

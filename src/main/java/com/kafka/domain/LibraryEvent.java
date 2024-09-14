@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public record LibraryEvent(
-        Integer libraryId,
-        LibraryEventType type,
+        Integer libraryEventId,
+        LibraryEventType libraryEventType,
 
         @NotNull
         @Valid
